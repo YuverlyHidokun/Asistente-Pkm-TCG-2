@@ -16,11 +16,11 @@
     </div>
 
     <div class="container">
-        <div class="player player1" id="player1" style="display: block;">
+        <div class="player player1" id="player1">
             <h2>Jugador 1</h2>
             <input type="text" class="card-name" placeholder="Nombre de la carta">
             <input type="number" class="card-hp" placeholder="HP">
-            <button id="add-card-player1">Agregar Carta</button>
+            <button onclick="addCard('player1')">Agregar Carta</button>
             <ul class="cards-list"></ul>
         </div>
         
@@ -28,7 +28,7 @@
             <h2>Jugador 2</h2>
             <input type="text" class="card-name" placeholder="Nombre de la carta">
             <input type="number" class="card-hp" placeholder="HP">
-            <button id="add-card-player2">Agregar Carta</button>
+            <button onclick="addCard('player2')">Agregar Carta</button>
             <ul class="cards-list"></ul>
         </div>
     </div>
@@ -36,7 +36,7 @@
     <div class="coin-section">
         <h2>Lanzar Moneda</h2>
         <img id="coin-image" src="assets/cara.png" alt="Moneda" class="coin-sprite">
-        <button id="flip-coin">Lanzar Moneda</button>
+        <button class="coin-button" onclick="flipCoin()">Lanzar Moneda</button>
         <p id="coin-result" class="coin-result"></p>
     </div>
 
