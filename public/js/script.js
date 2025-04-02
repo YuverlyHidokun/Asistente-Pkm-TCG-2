@@ -203,3 +203,13 @@ function flipCoin() {
         }
     });
 }
+
+//Evento de las salas con el socket
+document.getElementById('joinRoomBtn').addEventListener('click', () => {
+    const roomId = document.getElementById('roomId').value; // Obtener el ID de la sala desde el input
+    if (roomId) {
+        joinRoom(roomId); // Llamar a la función joinRoom para conectarse
+    } else {
+        alert("Por favor ingresa un ID de sala.");
+    }
+});

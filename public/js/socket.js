@@ -1,27 +1,26 @@
-// sistema de salas configuradas para el juego de cartas
-// y la lógica de sincronización entre los jugadores.
+//modificacion del archivo socket .js para incluir la funcionalidad de conexión y actualización del estado del juego
+// Conectar al servidor y unirse a una sala
+let socket;
 
-import { io } from "socket.io-client";
+export function joinRoom(roomId) {
+    socket = io('http://localhost:3000');  // Cambia la URL si es necesario
+    socket.emit('joinRoom', roomId);
+    console.log(`Unido a la sala: ${roomId}`);
 
-// Conexión con el servidor
-export const socket = io('http://localhost:3000');
-
-// Unirse a una sala
-export function joinRoom(room) {
-    socket.emit('joinRoom', room);
+    // Escuchar eventos de actualización de estado
+    socket.on('gameStateUpdate', (data) => {
+        updateGameState(data);
+    });
 }
 
-// Actualizar el estado del juego
-export function updateGameState(room, data) {
-    socket.emit('updateGameState', { room, data });
+export function updateGameState(stateData) {
+    // Aquí puedes actualizar el estado del juego en el frontend
+    console.log('Estado actualizado:', stateData);
 }
 
-// Escuchar eventos de sincronización del juego
+// Escuchar cambios en el estado del juego
 export function listenGameStateUpdate(callback) {
-    socket.on('syncGameState', callback);
-}
-
-// Escuchar eventos de actualización de la sala
-export function listenUpdateRoom(callback) {
-    socket.on('updateRoom', callback);
+    socket.on('gameStateUpdate', (data) => {
+        callback(data);
+    });
 }
