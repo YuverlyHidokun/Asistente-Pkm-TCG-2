@@ -1,4 +1,5 @@
-// socket.js
+// sistema de salas configuradas para el juego de cartas
+// y la lógica de sincronización entre los jugadores.
 
 import { io } from "socket.io-client";
 

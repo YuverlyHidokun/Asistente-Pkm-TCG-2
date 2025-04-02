@@ -68,3 +68,22 @@ export function eliminarCarta(cardElement) {
     animateCardExit(cardElement);
     setTimeout(() => cardElement.remove(), 2000);
 }
+
+// Obtener sprite de Pokémon desde la API
+async function fetchPokemonSprite(pokemonName, playerId) {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
+        if (!response.ok) throw new Error("Pokémon no encontrado");
+
+        const data = await response.json();
+        let spriteUrl = data.sprites.front_default;
+        let playerDiv = document.getElementById(playerId);
+        let spriteImg = playerDiv.querySelector(".pokemon-sprite") || document.createElement("img");
+
+        spriteImg.classList.add("pokemon-sprite");
+        spriteImg.src = spriteUrl;
+        if (!playerDiv.contains(spriteImg)) playerDiv.insertBefore(spriteImg, playerDiv.querySelector("h2").nextSibling);
+    } catch (error) {
+        console.error("Error al obtener el Pokémon:", error);
+    }
+}

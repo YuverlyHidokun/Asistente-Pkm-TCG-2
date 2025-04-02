@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asistente Pokémon TCG</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
     <h1>Asistente Pokémon TCG</h1>
+    <div class="join-room">
+        <input type="text" id="roomId" placeholder="ID de sala" />
+        <button id="joinRoomBtn">Unirse a la Sala</button>
+    </div>
+
     <div class="container">
-        <div class="player player1" id="player1" style="display: none;">
+        <div class="player player1" id="player1" style="display: block;">
             <h2>Jugador 1</h2>
             <input type="text" class="card-name" placeholder="Nombre de la carta">
             <input type="number" class="card-hp" placeholder="HP">
-            <button onclick="addCard('player1')">Agregar Carta</button>
+            <button id="add-card-player1">Agregar Carta</button>
             <ul class="cards-list"></ul>
         </div>
         
-        <div class="player player2" id="player2" style="display: none;">
+        <div class="player player2" id="player2" style="display: block;">
             <h2>Jugador 2</h2>
             <input type="text" class="card-name" placeholder="Nombre de la carta">
             <input type="number" class="card-hp" placeholder="HP">
-            <button onclick="addCard('player2')">Agregar Carta</button>
+            <button id="add-card-player2">Agregar Carta</button>
             <ul class="cards-list"></ul>
         </div>
     </div>
@@ -31,16 +36,13 @@
     <div class="coin-section">
         <h2>Lanzar Moneda</h2>
         <img id="coin-image" src="assets/cara.png" alt="Moneda" class="coin-sprite">
-        <button class="coin-button" onclick="flipCoin()">Lanzar Moneda</button>
+        <button id="flip-coin">Lanzar Moneda</button>
         <p id="coin-result" class="coin-result"></p>
     </div>
 
-    <div class="join-room">
-        <input type="text" id="roomId" placeholder="ID de sala" />
-        <button id="joinRoomBtn">Unirse a la Sala</button>
-    </div>
+    
 
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
