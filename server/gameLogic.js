@@ -34,10 +34,13 @@ module.exports = (io) => {
             for (const room in rooms) {
                 if (rooms[room].player1 === socket.id) {
                     rooms[room].player1 = null;
+                    io.to(room).emit('playerDisconnected', 'player1');
                 } else if (rooms[room].player2 === socket.id) {
                     rooms[room].player2 = null;
+                    io.to(room).emit('playerDisconnected', 'player2');
                 }
             }
         });
+        
     });
 };
