@@ -1,26 +1,31 @@
-//modificacion del archivo socket .js para incluir la funcionalidad de conexión y actualización del estado del juego
-// Conectar al servidor y unirse a una sala
-let socket;
+const socket = io();
 
-export function joinRoom(roomId) {
-    socket = io('http://localhost:3000');  // Cambia la URL si es necesario
-    socket.emit('joinRoom', roomId);
-    console.log(`Unido a la sala: ${roomId}`);
+// Obtener la sala desde la URL
+const params = new URLSearchParams(window.location.search);
+const room = params.get('room');
 
-    // Escuchar eventos de actualización de estado
-    socket.on('gameStateUpdate', (data) => {
-        updateGameState(data);
-    });
+if (room) {
+    socket.emit('joinRoom', room);
 }
 
-export function updateGameState(stateData) {
-    // Aquí puedes actualizar el estado del juego en el frontend
-    console.log('Estado actualizado:', stateData);
+// Escuchar el rol asignado (player1 o player2)
+socket.on('playerRole', (role) => {
+    console.log(`Eres ${role}`);
+});
+
+// Escuchar el estado del juego desde el otro jugador
+socket.on('syncGameState', (data) => {
+    console.log("Estado del juego sincronizado:", data);
+    actualizarJuego(data); // Debes crear esta función en tu código para aplicar los cambios
+});
+
+// Sincronizar el estado cuando ocurra un cambio
+function enviarEstadoDelJuego(estado) {
+    socket.emit('updateGameState', { room, data: estado });
 }
 
-// Escuchar cambios en el estado del juego
-export function listenGameStateUpdate(callback) {
-    socket.on('gameStateUpdate', (data) => {
-        callback(data);
-    });
-}
+// Simulación de acción en el juego (cambiar por la lógica real)
+document.addEventListener('click', () => {
+    const nuevoEstado = { mensaje: "Un jugador ha hecho algo" };
+    enviarEstadoDelJuego(nuevoEstado);
+});

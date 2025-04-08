@@ -205,11 +205,23 @@ function flipCoin() {
 }
 
 //Evento de las salas con el socket
-document.getElementById('joinRoomBtn').addEventListener('click', () => {
-    const roomId = document.getElementById('roomId').value; // Obtener el ID de la sala desde el input
-    if (roomId) {
-        joinRoom(roomId); // Llamar a la función joinRoom para conectarse
-    } else {
-        alert("Por favor ingresa un ID de sala.");
+const joinRoomBtn = document.getElementById('joinRoomBtn');
+if (joinRoomBtn) {
+    joinRoomBtn.addEventListener('click', () => {
+        const roomId = document.getElementById('roomId').value;
+        if (roomId) {
+            joinRoom(roomId);
+        } else {
+            alert("Por favor ingresa un ID de sala.");
+        }
+    });
+}
+
+function actualizarJuego(data) {
+    console.log("actualizarJuego llamada con:", data);
+    
+    const log = document.getElementById("sync-log");
+    if (log) {
+        log.textContent = `Mensaje recibido: ${data.mensaje}`;
     }
-});
+}
